@@ -1,0 +1,26 @@
+# Laravel (backend - test-dashboard)
+test-dashboard/vendor/
+test-dashboard/.env
+test-dashboard/.env.backup
+test-dashboard/storage/*.key
+test-dashboard/storage/logs/*
+test-dashboard/storage/framework/cache/*
+test-dashboard/storage/framework/sessions/*
+test-dashboard/storage/framework/views/*
+test-dashboard/bootstrap/cache/*
+test-dashboard/public/hot
+test-dashboard/public/storage
+test-dashboard/node_modules/
+
+# React frontend (horizon-ui-chakra)
+horizon-ui-chakra/node_modules/
+horizon-ui-chakra/build/
+horizon-ui-chakra/.env
+horizon-ui-chakra/dist/
+
+# Général
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
