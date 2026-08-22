@@ -1,0 +1,23 @@
+@"
+# Laravel
+talencia-api/.env
+talencia-api/.env.*
+!talencia-api/.env.example
+talencia-api/vendor/
+talencia-api/storage/logs/
+talencia-api/storage/framework/cache/
+talencia-api/storage/framework/sessions/
+talencia-api/storage/framework/views/
+
+# Node / React
+horizon-ui-chakra/node_modules/
+horizon-ui-chakra/dist/
+horizon-ui-chakra/build/
+
+# IDE / OS
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+"@ | Set-Content .gitignore
