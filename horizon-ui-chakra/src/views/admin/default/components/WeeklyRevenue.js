@@ -62,8 +62,6 @@ export default function WeeklyRevenue(props) {
     return Math.max(...items.map((item) => Number(item.applications_count || 0)));
   }, [items]);
 
-  const topItem = items[0];
-
   return (
     <Card p='24px' align='start' direction='column' w='100%' {...rest}>
       <Flex align='center' justify='space-between' w='100%' mb='16px'>
@@ -91,9 +89,6 @@ export default function WeeklyRevenue(props) {
             const progressValue = maxApplications
               ? (applicationsCount / maxApplications) * 100
               : 0;
-
-            const rankColors = ['brand.500', 'secondaryGray.400', 'secondaryGray.300'];
-            const rankColor = rankColors[index] || 'secondaryGray.200';
 
             return (
               <Box
@@ -124,6 +119,20 @@ export default function WeeklyRevenue(props) {
                       {index + 1}
                     </Flex>
 
+                    {index === 0 && (
+                      <Badge
+                        borderRadius='full'
+                        px='10px'
+                        py='4px'
+                        bg='brand.500'
+                        color='white'
+                        fontWeight='700'
+                        fontSize='xs'
+                        whiteSpace='nowrap'>
+                        🏆 Top pick
+                      </Badge>
+                    )}
+
                     <Box flex='1' minW='0'>
                       <Text color={textColor} fontSize='sm' fontWeight='700' lineHeight='1.4' noOfLines={1}>
                         {item.job_title}
@@ -136,12 +145,12 @@ export default function WeeklyRevenue(props) {
 
                   <Badge
                     borderRadius='full'
-                    px='12px'
-                    py='4px'
+                    px='14px'
+                    py='6px'
                     bg='brand.50'
                     color='brand.500'
                     fontWeight='700'
-                    fontSize='xs'
+                    fontSize='md'
                     whiteSpace='nowrap'>
                     {applicationsCount} apps
                   </Badge>
@@ -154,9 +163,7 @@ export default function WeeklyRevenue(props) {
                   bg='secondaryGray.100'
                   sx={{
                     '& > div': {
-                      background: index === 0
-                        ? 'linear-gradient(90deg, #4318FF 0%, #6AD2FF 100%)'
-                        : 'linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%)',
+                      background: 'linear-gradient(90deg, #4318FF 0%, #6AD2FF 100%)',
                     },
                   }}
                 />
@@ -182,37 +189,6 @@ export default function WeeklyRevenue(props) {
           </Text>
         </Flex>
       )}
-
-      {topItem ? (
-        <Flex
-          w='100%'
-          mt='16px'
-          pt='14px'
-          borderTop='1px solid'
-          borderColor={borderColor}
-          justify='space-between'
-          align='center'>
-          <Box>
-            <Text
-              color={subTextColor}
-              fontSize='xs'
-              fontWeight='700'
-              textTransform='uppercase'
-              letterSpacing='0.08em'>
-              Leading Position
-            </Text>
-            <Text color={textColor} fontSize='sm' fontWeight='700' mt='3px' noOfLines={1}>
-              {topItem.job_title}
-            </Text>
-          </Box>
-          <Flex align='center' gap='8px'>
-            <Box w='8px' h='8px' bg='brand.500' borderRadius='50%' />
-            <Text color={textColor} fontSize='lg' fontWeight='700'>
-              {topItem.applications_count}
-            </Text>
-          </Flex>
-        </Flex>
-      ) : null}
     </Card>
   );
 }

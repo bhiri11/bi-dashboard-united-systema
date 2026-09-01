@@ -1,0 +1,173 @@
+/* =========================================================
+   DateRangeFilter – react-calendar theming (Horizon UI)
+   Must be imported AFTER "react-calendar/dist/Calendar.css".
+   Scoped under .drf-calendar so it does not affect MiniCalendar.
+   Dark mode follows Chakra's body.chakra-ui-dark convention
+   (same as assets/css/MiniCalendar.css).
+   ========================================================= */
+
+/* ---------- Root: opaque background + clean border ---------- */
+.drf-calendar {
+  width: 300px;
+  max-width: 100%;
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 12px;
+  font-family: "DM Sans", sans-serif;
+}
+
+/* ---------- Navigation header ("August 2026" + arrows) ---------- */
+.drf-calendar .react-calendar__navigation {
+  background: transparent;
+  margin-bottom: 8px;
+}
+
+.drf-calendar .react-calendar__navigation button {
+  min-width: 36px;
+  background: transparent !important;
+  color: #1b2559 !important;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.drf-calendar .react-calendar__navigation button:enabled:hover,
+.drf-calendar .react-calendar__navigation button:enabled:focus {
+  background: #f4f7fe !important;
+}
+
+/* Hide the year-jump arrows (< < / > >): keep it compact */
+.drf-calendar .react-calendar__navigation__prev2-button,
+.drf-calendar .react-calendar__navigation__next2-button {
+  display: none;
+}
+
+.drf-calendar .react-calendar__navigation__label {
+  flex-grow: 0 !important;
+  padding: 6px 14px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  color: #1b2559 !important;
+}
+
+/* ---------- Weekday labels (S M T W T F S) ---------- */
+.drf-calendar .react-calendar__month-view__weekdays {
+  background: #f4f7fe;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.drf-calendar .react-calendar__month-view__weekdays__weekday {
+  padding: 8px 0;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #a3aed0;
+}
+
+/* Chakra's CSS reset re-adds the abbr dotted underline – remove it */
+.drf-calendar .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+  cursor: default;
+}
+
+/* ---------- Day tiles ---------- */
+.drf-calendar .react-calendar__tile {
+  color: #1b2559;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 0;
+}
+
+.drf-calendar .react-calendar__tile:enabled:hover,
+.drf-calendar .react-calendar__tile:enabled:focus {
+  background: #f4f7fe;
+  color: #1b2559;
+}
+
+/* Today */
+.drf-calendar .react-calendar__tile--now,
+.drf-calendar .react-calendar__tile--now:enabled:hover,
+.drf-calendar .react-calendar__tile--now:enabled:focus {
+  background: #f4f7fe;
+  color: #4318ff;
+  font-weight: 700;
+}
+
+/* Selected day */
+.drf-calendar .react-calendar__tile--active,
+.drf-calendar .react-calendar__tile--active:enabled:hover,
+.drf-calendar .react-calendar__tile--active:enabled:focus {
+  background: #4318ff !important;
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+/* Days from previous/next month */
+.drf-calendar .react-calendar__month-view__days__day--neighboringMonth,
+.drf-calendar
+  .react-calendar__month-view__days__day--weekend.react-calendar__month-view__days__day--neighboringMonth {
+  color: #b0bbd5;
+}
+
+/* =========================================================
+   DARK MODE (body.chakra-ui-dark)
+   ========================================================= */
+
+body.chakra-ui-dark .drf-calendar {
+  background: #111c44 !important;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__navigation button {
+  background: transparent !important;
+  color: #ffffff !important;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__navigation button:enabled:hover,
+body.chakra-ui-dark .drf-calendar .react-calendar__navigation button:enabled:focus {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__navigation__label {
+  color: #ffffff !important;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__month-view__weekdays {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__month-view__weekdays__weekday {
+  color: #a3aed0;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__tile {
+  color: #ffffff;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__tile:enabled:hover,
+body.chakra-ui-dark .drf-calendar .react-calendar__tile:enabled:focus {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--now,
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--now:enabled:hover,
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--now:enabled:focus {
+  background: rgba(117, 81, 255, 0.25);
+  color: #7551ff;
+}
+
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--active,
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--active:enabled:hover,
+body.chakra-ui-dark .drf-calendar .react-calendar__tile--active:enabled:focus {
+  background: #7551ff !important;
+  color: #ffffff !important;
+}
+
+body.chakra-ui-dark
+  .drf-calendar
+  .react-calendar__month-view__days__day--neighboringMonth {
+  color: #565e82;
+}

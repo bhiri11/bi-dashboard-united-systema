@@ -79,7 +79,7 @@ export default function UserReports() {
 
       <SimpleGrid columns={{ base: 1, xl: 2 }} gap='20px'>
         <DailyTraffic dateFilter={dateFilter} />
-        <NationalityChart />
+        <NationalityChart dateFilter={dateFilter} />
       </SimpleGrid>
     </Box>
   );

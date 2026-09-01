@@ -7,9 +7,9 @@ class ColumnChart extends Component {
       <Chart
         options={this.props.chartOptions}
         series={this.props.chartData}
-        type='bar'
-        width='100%'
-        height='100%'
+        type="bar"
+        width="100%"
+        height="100%"
       />
     );
   }

@@ -10,7 +10,6 @@ import {
 // Custom components
 import Card from "components/card/Card.js";
 import PieChart from "components/charts/PieChart";
-import { VSeparator } from "components/separator/Separator";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function Conversion(props) {
@@ -18,11 +17,6 @@ export default function Conversion(props) {
 
   // Chakra Color Mode
   const textColor = useColorModeValue("secondaryGray.900", "white");
-  const cardColor = useColorModeValue("white", "navy.700");
-  const cardShadow = useColorModeValue(
-    "0px 18px 40px rgba(112, 144, 176, 0.12)",
-    "unset"
-  );
   const [completionRate, setCompletionRate] = useState(0);
   const [completeProfiles, setCompleteProfiles] = useState(0);
   const [totalUsers, setTotalUsers] = useState(0);
@@ -162,8 +156,6 @@ export default function Conversion(props) {
     }),
     [textColor]
   );
-
-  const remainingRate = Math.max(0, 100 - completionRate);
 
   return (
     <Card p='24px' align='center' direction='column' w='100%' {...rest}>

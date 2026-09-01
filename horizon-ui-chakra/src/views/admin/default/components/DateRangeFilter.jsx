@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+// Horizon UI theme overrides – must be loaded AFTER the base Calendar.css
+import "./DateRangeFilter.css";
 import { FiCalendar } from "react-icons/fi";
 import React, { useState, useEffect } from "react";
 
@@ -173,12 +175,18 @@ export default function DateRangeFilter({ onFilterChange }) {
             </PopoverTrigger>
             <PopoverContent
               p={0}
-              border="none"
+              bg={useColorModeValue("white", "navy.800")}
+              border="1px solid"
+              borderColor={borderColor}
               boxShadow="lg"
-              borderRadius="md"
+              borderRadius="xl"
+              overflow="hidden"
+              w="332px"
+              maxW={{ base: "calc(100vw - 32px)", sm: "332px" }}
             >
-              <PopoverBody p={3}>
+              <PopoverBody p={4}>
                 <Calendar
+                  className="drf-calendar"
                   value={startDate ? parseLocalDate(startDate) : undefined}
                   onChange={handleStartDateSelect}
                 />
@@ -226,12 +234,18 @@ export default function DateRangeFilter({ onFilterChange }) {
             </PopoverTrigger>
             <PopoverContent
               p={0}
-              border="none"
+              bg={useColorModeValue("white", "navy.800")}
+              border="1px solid"
+              borderColor={borderColor}
               boxShadow="lg"
-              borderRadius="md"
+              borderRadius="xl"
+              overflow="hidden"
+              w="332px"
+              maxW={{ base: "calc(100vw - 32px)", sm: "332px" }}
             >
-              <PopoverBody p={3}>
+              <PopoverBody p={4}>
                 <Calendar
+                  className="drf-calendar"
                   value={endDate ? parseLocalDate(endDate) : undefined}
                   onChange={handleEndDateSelect}
                 />

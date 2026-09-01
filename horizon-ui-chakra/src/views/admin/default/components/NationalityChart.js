@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import {
-  Badge,
   Box,
   Flex,
   Progress,
@@ -13,17 +12,12 @@ import {
 import Card from "components/card/Card.js";
 import BarChart from "components/charts/BarChart";
 
-export default function NationalityChart(props) {
-  const { ...rest } = props;
+export default function NationalityChart({ dateFilter, ...rest }) {
 
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const subTextColor = useColorModeValue("secondaryGray.600", "whiteAlpha.700");
   const cardBg = useColorModeValue("white", "navy.700");
   const borderColor = useColorModeValue("secondaryGray.100", "whiteAlpha.100");
-  const rowShadow = useColorModeValue(
-    "0px 10px 25px rgba(112, 144, 176, 0.08)",
-    "unset"
-  );
 
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
@@ -36,7 +30,18 @@ export default function NationalityChart(props) {
     const apiBaseUrl =
       process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
 
-    fetch(`${apiBaseUrl}/api/kpi/nationality-breakdown`)
+    const params = new URLSearchParams();
+
+    if (dateFilter?.start_date && dateFilter?.end_date) {
+      params.append("start_date", dateFilter.start_date);
+      params.append("end_date", dateFilter.end_date);
+    }
+
+    fetch(
+      `${apiBaseUrl}/api/kpi/nationality-breakdown${
+        params.toString() ? `?${params.toString()}` : ""
+      }`
+    )
       .then((response) => response.json())
       .then((data) => {
         if (!isMounted) {
@@ -65,7 +70,17 @@ export default function NationalityChart(props) {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [dateFilter?.start_date, dateFilter?.end_date]);
+
+  // Percentage of the filtered period's total users, rounded to 1 decimal
+  // (e.g. 64/239 -> "26.8", 100/400 -> "27"). Returns null if total is unknown.
+  const formatPercent = (peopleCount) => {
+    if (!totalUsers) {
+      return null;
+    }
+
+    return `${Math.round((peopleCount / totalUsers) * 1000) / 10}`;
+  };
 
   const chartData = useMemo(() => series, [series]);
 
@@ -102,7 +117,12 @@ export default function NationalityChart(props) {
         },
         y: {
           formatter: function (val) {
-            return val + " talents";
+            const percent = totalUsers
+              ? Math.round((val / totalUsers) * 1000) / 10
+              : null;
+            return percent !== null && !Number.isNaN(percent)
+              ? `${val} talents (${percent}%)`
+              : `${val} talents`;
           },
         },
       },
@@ -156,8 +176,8 @@ export default function NationalityChart(props) {
           opacityTo: 0.5,
           colorStops: [
             [
-              { offset: 0, color: "#6AD2FF", opacity: 1 },
-              { offset: 100, color: "#4318FF", opacity: 0.9 },
+              { offset: 0, color: "#4318FF", opacity: 1 },
+              { offset: 100, color: "#6AD2FF", opacity: 0.9 },
             ],
           ],
         },
@@ -179,7 +199,7 @@ export default function NationalityChart(props) {
         },
       },
     }),
-    [categories]
+    [categories, totalUsers]
   );
 
   const topItem = items[0];
@@ -221,16 +241,6 @@ export default function NationalityChart(props) {
             {loading ? "Loading nationality breakdown..." : "Top nationalities with others grouped"}
           </Text>
         </Flex>
-        <Badge
-          borderRadius='full'
-          px='12px'
-          py='4px'
-          bg='brand.50'
-          color='brand.500'
-          fontWeight='700'
-          fontSize='xs'>
-          {items.length} groups
-        </Badge>
       </Flex>
 
       {loading ? (
@@ -264,6 +274,11 @@ export default function NationalityChart(props) {
           <Text color={textColor} fontSize='lg' fontWeight='700'>
             {topItem ? topItem.people_count : 0}
           </Text>
+          {topItem && formatPercent(Number(topItem.people_count || 0)) && (
+            <Text color={subTextColor} fontSize='xs' fontWeight='500'>
+              ({formatPercent(Number(topItem.people_count || 0))}%)
+            </Text>
+          )}
         </Flex>
       </Flex>
 
@@ -297,14 +312,25 @@ export default function NationalityChart(props) {
                   bg='secondaryGray.100'
                   sx={{
                     '& > div': {
-                      background: 'linear-gradient(90deg, #6AD2FF 0%, #4318FF 100%)',
+                      background: 'linear-gradient(90deg, #4318FF 0%, #6AD2FF 100%)',
                     },
                   }}
                 />
               </Box>
-              <Text color={textColor} fontSize='sm' fontWeight='700' minW='30px' textAlign='right'>
-                {peopleCount}
-              </Text>
+              <Flex align='center' gap='4px'>
+                <Text color={textColor} fontSize='sm' fontWeight='700' minW='30px' textAlign='right'>
+                  {peopleCount}
+                </Text>
+                {formatPercent(peopleCount) && (
+                  <Text
+                    color='secondaryGray.600'
+                    fontSize='xs'
+                    fontWeight='500'
+                    whiteSpace='nowrap'>
+                    ({formatPercent(peopleCount)}%)
+                  </Text>
+                )}
+              </Flex>
             </Flex>
           );
         })}

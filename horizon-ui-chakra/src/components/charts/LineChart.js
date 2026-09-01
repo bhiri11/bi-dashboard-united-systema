@@ -6,9 +6,9 @@ export default function LineChart(props) {
     <ReactApexChart
       options={props.chartOptions}
       series={props.chartData}
-      type='line'
-      width='100%'
-      height='100%'
+      type="line"
+      width="100%"
+      height="100%"
     />
   );
 }
