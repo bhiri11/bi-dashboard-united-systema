@@ -279,7 +279,7 @@ export default function DailyTraffic({ dateFilter, ...rest }) {
           top: 0,
           right: 0,
           bottom: 0,
-          left: 0,
+          left: isBarMode ? 0 : 20,
         },
       },
       fill: {
@@ -325,12 +325,12 @@ export default function DailyTraffic({ dateFilter, ...rest }) {
               width: 4,
             },
             markers: {
-              size: 5,
+              size: 3,
               colors: ["#4318FF"],
               strokeColors: "#FFFFFF",
               strokeWidth: 2,
               hover: {
-                size: 7,
+                size: 5,
               },
             },
           }),

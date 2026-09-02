@@ -533,7 +533,7 @@ class KpiCandidatsController extends Controller
             $endOfPeriod = Carbon::parse($endDate)->endOfDay();
             $periodLabel = "{$startDate} to {$endDate}";
 
-            $days = $startOfPeriod->diffInDays($endOfPeriod) + 1;
+            $days = (int) $startOfPeriod->diffInDays($endOfPeriod) + 1;
         } else {
             $today = Carbon::today();
             $startOfPeriod = $today->copy()->subDays($days - 1)->startOfDay();
